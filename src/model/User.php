@@ -1,41 +1,23 @@
 <?php
 
 class User implements Model, FormModel {
-    private string | null $id;
-    public string $name;
-    private string $email;
-    protected int $age;
+    private Field $id;
+    public Field $name;
+    public Field $email;
+    public Field $age;
 
-    public function __construct(string $name, string $email, int $age) {
-        $this->id = null;
-        $this->name = $name;
-        $this->email = $email;
-        $this->age = $age;
+    public function __construct(string $name, string $email, int $age, string $id = null) {
+        $this->name = new Field("name", 'text', true, $name);
+        $this->email = new Field("email", 'text', true, $email);
+        $this->age = new Field("age", 'integer', true, $age);
+        $this->id = new Field('id', 'text', false, $id);
     }
 
-    // public function getFields(): array
-    // {
-    //     $fields = [];
-    //     $reflection = new ReflectionClass($this);
+    public function setId(string $id): void {
+        $this->id->setValue($id);
+    }
 
-    //     foreach ($reflection->getProperties() as $property) {
-    //         $name = $property->getName();
-
-    //         $type = 'text';
-    //         if ($property->hasType()) {
-    //             $ptype = $property->getType()->getName();
-    //             if ($ptype === 'int') $type = 'number';
-    //             if ($ptype === 'bool') $type = 'checkbox';
-    //             if ($ptype === 'string' && stripos($name, 'email') !== false) $type = 'email';
-    //         }
-
-    //         $fields[] = [
-    //             'name'  => $name,
-    //             'type'  => $type,
-    //             'isRequired' => true
-    //         ];
-    //     }
-
-    //     return $fields;
-    // }
+    public function __tostring(): string {
+        return "User{id=" . $this->id->getValue() . ", name=" . $this->name->getValue() . ", email=" . $this->email->getValue() . ", age=" . $this->age->getValue() . "}";
+    }
 }
