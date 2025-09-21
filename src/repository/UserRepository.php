@@ -5,7 +5,6 @@ require_once '../model/Model.php';
 require_once '../model/Field.php';
 
 class UserRepository extends Repository {
-    use Logger;
     public function create(Model $model): bool | User {
         if (!$model instanceof User) {
             $this->logError("Invalid model type -> UserRepository::create");
@@ -18,7 +17,7 @@ class UserRepository extends Repository {
             $model->age->getValue()
         ];
 
-        $stmt = $this->prepareAndExecute($this->conn, $query, $params);
+        $stmt = $this->prepareAndExecute($query, $params);
         if ($stmt) {
             $result = $stmt->get_result();
             $data = $result ? $result->fetch_assoc() : null;
@@ -38,7 +37,7 @@ class UserRepository extends Repository {
     public function getById(string $id): Model | null {
         $query = "SELECT * FROM users WHERE id = ?";
         $params = [$id];
-        $stmt = $this->prepareAndExecute($this->conn, $query, $params);
+        $stmt = $this->prepareAndExecute($query, $params);
         
         if ($stmt) {
             $result = $stmt->get_result();
@@ -61,7 +60,7 @@ class UserRepository extends Repository {
 
     public function getAll(): array {
         $query = "SELECT * FROM users";
-        $stmt = $this->prepareAndExecute($this->conn, $query, []);
+        $stmt = $this->prepareAndExecute($query, []);
         $users = [];
         if ($stmt) {
             $result = $stmt->get_result();
@@ -91,7 +90,7 @@ class UserRepository extends Repository {
             $model->age->getValue(),
             $id
         ];
-        $stmt = $this->prepareAndExecute($this->conn, $query, $params);
+        $stmt = $this->prepareAndExecute($query, $params);
         if ($stmt) {
             $result = $stmt->get_result();
             $data = $result ? $result->fetch_assoc() : null;
@@ -116,7 +115,7 @@ class UserRepository extends Repository {
     public function delete(string $id): bool {
         $query = "DELETE FROM users WHERE id = ?";
         $params = [$id];
-        $stmt = $this->prepareAndExecute($this->conn, $query, $params);
+        $stmt = $this->prepareAndExecute($query, $params);
         if ($stmt) {
             if ($stmt->affected_rows > 0) {
                 $this->logInfo("User deleted with id: " . $id . " -> UserRepository::delete");
