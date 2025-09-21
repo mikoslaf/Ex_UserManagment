@@ -1,16 +1,16 @@
 <?php
-
-require_once '../model/user.php';
-require_once '../model/Model.php';
-require_once '../model/Field.php';
+require_once __DIR__ . '/Repository.php';
+require_once __DIR__ . '/../model/User.php';
+require_once __DIR__ . '/../model/Model.php';
+require_once __DIR__ . '/../trait/Logger.php';
 
 class UserRepository extends Repository {
-    public function create(Model $model): bool | User {
+    public function create(Model $model): bool {
         if (!$model instanceof User) {
             $this->logError("Invalid model type -> UserRepository::create");
-            return false;
+            throw new InvalidArgumentException("Invalid model type");
         }
-        $query = "INSERT INTO users (name, email, age) VALUES (?, ?, ?) returning *";
+        $query = "INSERT INTO users (name, email, age) VALUES (?, ?, ?)";
         $params = [
             $model->name->getValue(),
             $model->email->getValue(),
@@ -19,15 +19,12 @@ class UserRepository extends Repository {
 
         $stmt = $this->prepareAndExecute($query, $params);
         if ($stmt) {
-            $result = $stmt->get_result();
-            $data = $result ? $result->fetch_assoc() : null;
-            if ($data) {
-                $model->setId($data['id']);
-
+            $result = $stmt->affected_rows;
+            if ($result === 1) {
                 $this->logInfo("User created: " . $model->__tostring());
-                return $model;
+                return true;
             }
-            $this->logError('No data returned -> UserRepository::create');
+            $this->logWarning('User not created -> UserRepository::create ->' . $stmt->error);
             return false;
         }
         $this->logError('Database error -> UserRepository::create');
@@ -49,8 +46,6 @@ class UserRepository extends Repository {
                     (int)$data['age'],
                     $data['id']
                 );
-            } else {
-                $this->logWarning("User not found by id: " . $id . " -> UserRepository::getById");
             }
         } else {
             $this->logError('Database error -> UserRepository::getById');
@@ -78,12 +73,12 @@ class UserRepository extends Repository {
         return $users;
     }
 
-    public function update(string $id, Model $model): User | bool {
+    public function update(string $id, Model $model): bool {
         if (!$model instanceof User) {
             $this->logError("Invalid model type -> UserRepository::update");
             return false;
         }
-        $query = 'UPDATE users SET name = ?, email = ?, age = ? WHERE id = ? RETURNING *';
+        $query = 'UPDATE users SET name = ?, email = ?, age = ? WHERE id = ?';
         $params = [
             $model->name->getValue(),
             $model->email->getValue(),
@@ -92,22 +87,13 @@ class UserRepository extends Repository {
         ];
         $stmt = $this->prepareAndExecute($query, $params);
         if ($stmt) {
-            $result = $stmt->get_result();
-            $data = $result ? $result->fetch_assoc() : null;
-            if ($data) {
-                $newUser = new User(
-                    $data['name'],
-                    $data['email'],
-                    (int)$data['age'],
-                    $data['id']
-                );
-                $this->logInfo("User updated from: " . $model->__tostring() . " to: " . $newUser->__tostring());
-                return $newUser;
+            $result = $stmt->affected_rows;
+            if ($result === 1) {
+                $this->logInfo("User updated: " . $model->__tostring());
+                return true;
             }
-            $this->logError('No data returned -> UserRepository::update');
+            $this->logWarning('User not updated -> UserRepository::update ->' . $stmt->error);
             return false;
-        } else {
-            $this->logError('Database error -> UserRepository::update');
         }
         return false;
     }

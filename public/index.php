@@ -6,9 +6,9 @@
     <title>Exponet Form</title>
 </head>
 <body>
-    <button onclick="document.location='admin.php'">Home</button>
+    <button onclick="document.location='admin.php'">Admin panel</button>
     <h1>User Form</h1>
-    <form method="POST" action="">
+    <form method="POST" action="user/create.php">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
         <br>

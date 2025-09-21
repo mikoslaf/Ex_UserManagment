@@ -1,5 +1,4 @@
 <?php
-
 class Field {
     private string $name;
     private string $type;
@@ -11,6 +10,10 @@ class Field {
         $this->type = $type;
         $this->isRequired = $isRequired;
         $this->value = $value;
+
+        if ($this->isRequired && $this->value === null) {
+            throw new InvalidArgumentException("Field '$name' is required.");
+        }
     }
 
     public function getName(): string {

@@ -1,0 +1,17 @@
+{
+    "name": "mikolaj/exponet_job_interview",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mikolaj\\Exponet_job_interview\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mikoslaf",
+            "email": "mikolaj2003wojcik@gmail.com"
+        }
+    ]
+}
