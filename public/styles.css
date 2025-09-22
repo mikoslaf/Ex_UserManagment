@@ -1,0 +1,568 @@
+/* Modern CSS for PHP User Management Application */
+@import url("https://fonts.googleapis.com/css2?family=Geist+Sans:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --background: #f0fdf4;
+  --foreground: #374151;
+  --card: #ffffff;
+  --card-foreground: #374151;
+  --popover: #ffffff;
+  --popover-foreground: #374151;
+  --primary: #15803d;
+  --primary-foreground: #ffffff;
+  --secondary: #84cc16;
+  --secondary-foreground: #374151;
+  --muted: #f0fdf4;
+  --muted-foreground: #6b7280;
+  --accent: #84cc16;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e5e7eb;
+  --input: #ffffff;
+  --ring: rgba(22, 163, 74, 0.5);
+  --radius: 0.5rem;
+  --sidebar: #f0fdf4;
+  --sidebar-foreground: #374151;
+  --sidebar-primary: #15803d;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #84cc16;
+  --sidebar-accent-foreground: #374151;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: rgba(22, 163, 74, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: var(--primary-foreground);
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.logo {
+  font-family: "Geist Sans", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-foreground);
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: var(--primary-foreground);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.main {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-family: "Geist Sans", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: var(--muted-foreground);
+  font-size: 1.1rem;
+}
+
+.page-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  border: 1px solid;
+}
+
+.alert-success {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+.alert-error {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+.alert-icon {
+  font-size: 1.25rem;
+  font-weight: bold;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.alert-content h3 {
+  font-family: "Geist Sans", sans-serif;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.alert-content p {
+  margin-bottom: 0.25rem;
+}
+
+.error-detail {
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-title {
+  font-family: "Geist Sans", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.card-content {
+  /* No additional styles needed, inherits from card */
+}
+
+.user-details {
+  display: grid;
+  gap: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: var(--muted);
+  border-radius: var(--radius);
+}
+
+.detail-label {
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+.detail-value {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.user-id {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  background-color: var(--muted);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+}
+
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.user-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.user-name {
+  font-family: "Geist Sans", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0;
+}
+
+.user-card-content {
+  margin-bottom: 1rem;
+}
+
+.user-email {
+  color: var(--muted-foreground);
+  margin-bottom: 0.25rem;
+}
+
+.user-age {
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+}
+
+.user-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.btn-danger {
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+}
+
+.btn-danger:hover {
+  background-color: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.deleted-user-info {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.footer {
+  background-color: var(--card);
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+  margin-top: 3rem;
+  text-align: center;
+  color: var(--muted-foreground);
+}
+
+.nav-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--card);
+  color: var(--primary);
+  border: 2px solid var(--border);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.nav-button:hover {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(21, 128, 61, 0.3);
+}
+
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-family: "Geist Sans", sans-serif;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--card-foreground);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--input);
+  color: var(--foreground);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.btn-primary:hover {
+  background-color: #166534;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(21, 128, 61, 0.3);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.btn-secondary:hover {
+  background-color: #65a30d;
+  transform: translateY(-1px);
+}
+
+.btn-destructive {
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+}
+
+.btn-destructive:hover {
+  background-color: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.user-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.user-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.user-info {
+  margin-bottom: 1rem;
+}
+
+.user-info h3 {
+  font-family: "Geist Sans", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.user-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  color: var(--muted-foreground);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+  font-family: "Geist Sans", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  display: block;
+}
+
+.stat-label {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--muted-foreground);
+}
+
+.empty-state h3 {
+  font-family: "Geist Sans", sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .user-actions {
+    justify-content: center;
+  }
+
+  .btn,
+  .nav-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .header .container {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .users-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .form-actions,
+  .page-actions {
+    flex-direction: column;
+  }
+
+  .user-card-actions {
+    justify-content: center;
+  }
+
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
